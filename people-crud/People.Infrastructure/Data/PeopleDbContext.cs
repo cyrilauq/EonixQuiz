@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using People.Domain.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace People.Infrastructure.Data
 {
