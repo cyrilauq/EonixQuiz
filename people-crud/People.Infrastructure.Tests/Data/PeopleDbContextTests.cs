@@ -24,6 +24,12 @@ namespace People.Infrastructure.Tests.Data
             dbContext.Database.EnsureCreated();
         }
 
+        [TestCleanup]
+        public async Task TearDown()
+        {
+            dbContext.Database.EnsureDeleted();
+        }
+
         [TestMethod]
         public async Task WhenAddANewPeopleEntryThenTablePeopleHasCountTo1()
         {
