@@ -1,4 +1,9 @@
+using People.Api.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+
+builder.Services.AddServices(configuration);
 
 // Add services to the container.
 

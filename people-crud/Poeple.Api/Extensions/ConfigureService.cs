@@ -5,11 +5,11 @@ namespace People.Api.Extensions
 {
     public static class ConfigureService
     {
-        public static IServiceCollection AddServices(this IServiceCollection services)
+        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services
                 .AddApplicationServices()
-                .AddInfrastructureServices();
+                .AddInfrastructureServices(configuration);
 
             return services;
         }
