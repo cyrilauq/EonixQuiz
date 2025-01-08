@@ -11,10 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Circus.Tests", "circus\Circ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Circus.App", "circus\Circus.App\Circus.App.csproj", "{E4EC950F-4843-4B73-AD40-0DEE93E7B22A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People.API", "people-crud\People.API\People.API.csproj", "{C283B994-8B87-4D11-8C64-0DF9BBD03254}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People.Tests", "people-crud\People.Tests\People.Tests.csproj", "{5275C07C-F78B-4239-8D42-890A4D70AB4B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,14 +25,6 @@ Global
 		{E4EC950F-4843-4B73-AD40-0DEE93E7B22A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4EC950F-4843-4B73-AD40-0DEE93E7B22A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4EC950F-4843-4B73-AD40-0DEE93E7B22A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C283B994-8B87-4D11-8C64-0DF9BBD03254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C283B994-8B87-4D11-8C64-0DF9BBD03254}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C283B994-8B87-4D11-8C64-0DF9BBD03254}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C283B994-8B87-4D11-8C64-0DF9BBD03254}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5275C07C-F78B-4239-8D42-890A4D70AB4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5275C07C-F78B-4239-8D42-890A4D70AB4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5275C07C-F78B-4239-8D42-890A4D70AB4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5275C07C-F78B-4239-8D42-890A4D70AB4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,8 +32,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5DBDF178-89D0-4852-BE54-900009E48431} = {B0710E44-79C3-4D92-9466-CFCDC8CF6BEC}
 		{E4EC950F-4843-4B73-AD40-0DEE93E7B22A} = {B0710E44-79C3-4D92-9466-CFCDC8CF6BEC}
-		{C283B994-8B87-4D11-8C64-0DF9BBD03254} = {C55CD1D0-D8E0-4716-8412-86ACF1D01CDF}
-		{5275C07C-F78B-4239-8D42-890A4D70AB4B} = {C55CD1D0-D8E0-4716-8412-86ACF1D01CDF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64E7E4AD-9054-44E4-8D4F-AC4EBCD61365}
