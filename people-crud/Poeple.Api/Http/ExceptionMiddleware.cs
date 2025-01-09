@@ -27,7 +27,7 @@ namespace People.Api.Http
         private HttpResponseErrors GetHttpErrorFromException(Exception exception, Guid traceId)
         {
             var exceptionType = exception.InnerException?.GetType();
-            if (exceptionType == typeof(ValidationException))
+            if (exceptionType == typeof(Application.Exceptions.ValidationException) || exceptionType == typeof(ValidationException))
             {
                 return new ((int)StatusCodes.Status400BadRequest, "Bad Request", $"The resource already exists");
             }
