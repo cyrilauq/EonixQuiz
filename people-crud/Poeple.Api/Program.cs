@@ -7,6 +7,7 @@ var configuration = builder.Configuration;
 builder.Services.AddServices(configuration);
 
 // Add services to the container.
+builder.Services.AddScoped<ExceptionMiddleware>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
