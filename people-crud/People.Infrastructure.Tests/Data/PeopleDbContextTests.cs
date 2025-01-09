@@ -10,7 +10,7 @@ namespace People.Infrastructure.Tests.Data
         PeopleDbContext dbContext;
 
         [TestInitialize]
-        public async Task SetUp()
+        public void SetUp()
         {
             // Arrange
             var _contextOptions = new DbContextOptionsBuilder<PeopleDbContext>()
@@ -20,14 +20,14 @@ namespace People.Infrastructure.Tests.Data
 
             dbContext = new PeopleDbContext(_contextOptions);
 
-            dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
         }
 
         [TestCleanup]
-        public async Task TearDown()
+        public void TearDown()
         {
             dbContext.Database.EnsureDeleted();
+            dbContext.Dispose();
         }
 
         [TestMethod]

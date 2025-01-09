@@ -14,7 +14,7 @@ namespace People.Infrastructure.Tests.Repositories
         PeopleDbContext dbContext;
 
         [TestInitialize]
-        public async Task SetUp()
+        public void SetUp()
         {
             // Arrange
             var _contextOptions = new DbContextOptionsBuilder<PeopleDbContext>()
@@ -24,7 +24,6 @@ namespace People.Infrastructure.Tests.Repositories
 
             dbContext = new PeopleDbContext(_contextOptions);
 
-            dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
 
             repository = new PersonEFRepository(dbContext);
@@ -34,6 +33,7 @@ namespace People.Infrastructure.Tests.Repositories
         public void TearDown()
         {
             dbContext.Database.EnsureDeleted();
+            dbContext.Dispose();
         }
 
         [TestMethod]
