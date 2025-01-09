@@ -18,12 +18,12 @@ namespace People.Infrastructure.Tests.Repositories
         {
             // Arrange
             var _contextOptions = new DbContextOptionsBuilder<PeopleDbContext>()
-                .UseInMemoryDatabase("BloggingControllerTest")
-                .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+                .UseInMemoryDatabase("PersonEFRepositoryTestsDB")
                 .Options;
 
             dbContext = new PeopleDbContext(_contextOptions);
 
+            dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
 
             repository = new PersonEFRepository(dbContext);

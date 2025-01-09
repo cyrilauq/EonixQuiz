@@ -14,8 +14,7 @@ namespace People.Infrastructure.Tests.Data
         {
             // Arrange
             var _contextOptions = new DbContextOptionsBuilder<PeopleDbContext>()
-                .UseInMemoryDatabase("BloggingControllerTest")
-                .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+                .UseInMemoryDatabase("PeopleDbContextTestsDB")
                 .Options;
 
             dbContext = new PeopleDbContext(_contextOptions);
