@@ -62,13 +62,13 @@ namespace People.Infrastructure.Tests.Repositories
         {
             // Arrange
             Person person = await repository.Add(new Person { Firstname = "Test", Name = "Test" });
-            int firstCount = await dbContext.People.CountAsync();
 
             // Act
             bool deletionResult = await repository.Delete(person.Id);
 
             // Assert
             Assert.IsTrue(deletionResult);
+            Assert.AreEqual(0, await dbContext.People.CountAsync());
         }
 
         [TestMethod]
