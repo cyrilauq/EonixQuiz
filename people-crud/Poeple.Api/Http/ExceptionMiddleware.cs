@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ApplicationException = People.Application.Exceptions;
 using System.ComponentModel.DataAnnotations;
 
 namespace People.Api.Http
@@ -26,10 +27,14 @@ namespace People.Api.Http
 
         private HttpResponseErrors GetHttpErrorFromException(Exception exception, Guid traceId)
         {
-            var exceptionType = exception.InnerException?.GetType();
-            if (exceptionType == typeof(Application.Exceptions.ValidationException) || exceptionType == typeof(ValidationException))
+            var exceptionType = exception.GetType();
+            if (exceptionType == typeof(ApplicationException.ValidationException))
             {
-                return new ((int)StatusCodes.Status400BadRequest, "Bad Request", $"The resource already exists");
+                return new ((int)StatusCodes.Status400BadRequest, "Bad Request", (exception as ApplicationException.ValidationException)?.Errors);
+            }
+            if(exceptionType == typeof(ApplicationException.ResourceNotFound))
+            {
+                return new((int)StatusCodes.Status404NotFound, "Not found", exception.Message);
             }
             return new ((int)StatusCodes.Status500InternalServerError, "Internal Server Error", environment.IsDevelopment() ? exception.Message : $"Internal server error occured, traceId : {traceId}");
         }
