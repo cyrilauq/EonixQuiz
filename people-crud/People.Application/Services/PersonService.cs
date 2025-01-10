@@ -6,6 +6,7 @@ using People.Application.Services.Interfaces;
 using People.Domain.Entities;
 using People.Domain.Exceptions;
 using People.Domain.Repositories;
+using People.Application.Exceptions;
 
 namespace People.Application.Services
 {
@@ -27,6 +28,18 @@ namespace People.Application.Services
             catch (EntityNotValidException enve)
             {
                 throw new ApplicationExceptions.ValidationException("Entity not valid", ["Firstname and Lastname should have a value"]);
+            }
+        }
+
+        public async Task<bool> Delete(Guid personId)
+        {
+            try
+            {
+                return await personRepository.Delete(personId);
+            }
+            catch (NotSuchEntityFoundException)
+            {
+                throw new ResourceNotFound("No person found for the id [{personId}]");
             }
         }
     }

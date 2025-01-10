@@ -50,5 +50,31 @@ namespace People.Application.Tests.Services
             // Act
             await service.Add(new PersonDTO());
         }
+
+        [TestMethod]
+        public async Task WhenDeletePersonDeletionIsASuccessThenReturnsTrue()
+        {
+            // Arrange
+            mockedPersonRepo.Setup(mpr => mpr.Delete(It.IsAny<Guid>()))
+                .ReturnsAsync(true);
+
+            // Act
+            bool deletionResult = await service.Delete(Guid.NewGuid());
+
+            // Assert
+            Assert.IsTrue(deletionResult);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ResourceNotFound))]
+        public async Task WhenRepositoryThrowNotSuchEntityFoundExceptionThenCatchItAndThrowsResourceNotFound()
+        {
+            // Arrange
+            mockedPersonRepo.Setup(mpr => mpr.Delete(It.IsAny<Guid>()))
+                .ThrowsAsync(new NotSuchEntityFoundException(""));
+
+            // Act
+            bool deletionResult = await service.Delete(Guid.NewGuid());
+        }
     }
 }

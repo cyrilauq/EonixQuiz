@@ -5,5 +5,6 @@ namespace People.Application.Services.Interfaces
     public interface IPersonService
     {
         Task<PersonDTO> Add(PersonDTO personDTO);
+        Task<bool> Delete(Guid personId);
     }
 }
