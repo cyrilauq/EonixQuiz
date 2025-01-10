@@ -13,5 +13,12 @@ namespace People.Api.Controllers
         {
             return await personService.Add(dto);
         }
+
+        [HttpDelete("{personId}")]
+        public async Task<ActionResult> Delete(Guid personId)
+        {
+            await personService.Delete(personId);
+            return NoContent();
+        }
     }
 }
