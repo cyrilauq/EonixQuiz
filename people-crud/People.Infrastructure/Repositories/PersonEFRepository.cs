@@ -4,7 +4,7 @@ using People.Domain.Entities;
 using People.Domain.Exceptions;
 using People.Domain.Repositories;
 using People.Infrastructure.Data;
-using System;
+using System.Linq.Expressions;
 
 namespace People.Infrastructure.Repositories
 {
@@ -34,6 +34,22 @@ namespace People.Infrastructure.Repositories
             context.People.Remove(foundedPerson);
             await context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<IEnumerable<Person>> GetAll(Expression<Func<Person, bool>>? filter = null, PaginatedArgs ? paginatedArgs = null)
+        {
+            IQueryable<Person> query = context.Set<Person>();
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if(paginatedArgs != null)
+            {
+                query = query
+                    .Skip((paginatedArgs.PageIndex - 1) * paginatedArgs.PageSize)
+                    .Take(paginatedArgs.PageSize);
+            }
+            return await query.ToListAsync();
         }
 
         public async Task<Person?> GetById(Guid personId)

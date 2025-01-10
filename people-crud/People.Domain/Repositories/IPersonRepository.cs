@@ -1,4 +1,5 @@
 ﻿using People.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace People.Domain.Repositories
 {
@@ -7,9 +8,9 @@ namespace People.Domain.Repositories
         public Task<Person> Add(Person person);
         //public Task<Person> Update(Guid personId, Person person);
         public Task<bool> Delete(Guid personId);
-        //public Task <IEnumerable<Person>> GetAll();
+        public Task<IEnumerable<Person>> GetAll(Expression<Func<Person, bool>>? filter = null, PaginatedArgs? paginatedArgs = null);
         public Task<Person?> GetById(Guid personId);
     }
 
-    //public record GetAllArgs(string? Name, string? Firstname);
+    public record PaginatedArgs(int PageSize, int PageIndex);
 }

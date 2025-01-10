@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using People.Domain.Entities;
 using People.Domain.Exceptions;
+using People.Domain.Repositories;
 using People.Infrastructure.Data;
 using People.Infrastructure.Repositories;
 
@@ -106,6 +107,70 @@ namespace People.Infrastructure.Tests.Repositories
 
             // Assert
             Assert.IsNull(foundedEntity);
+        }
+
+        [TestMethod]
+        public async Task When_GetAll_WithNoFilteringAndNoPagination_ThenReturnsAllPeople()
+        {
+            // Arrange
+            await repository.Add(new Person { Firstname = "Test", Name = "Test" });
+            await repository.Add(new Person { Firstname = "Test", Name = "Test" });
+            await repository.Add(new Person { Firstname = "Test", Name = "Test" });
+            await repository.Add(new Person { Firstname = "Test", Name = "Test" });
+
+            // Act
+            IEnumerable<Person> allPeople = await repository.GetAll();
+
+            // Assert
+            Assert.AreEqual(4, allPeople.Count());
+        }
+
+        [TestMethod]
+        public async Task When_GetAll_WithFilteringAndNoPagination_ThenReturnsAllPeopleThatCorrespondToTheFilter()
+        {
+            // Arrange
+            await repository.Add(new Person { Firstname = "Cyril", Name = "Test" });
+            await repository.Add(new Person { Firstname = "Cyrielle", Name = "Test" });
+            await repository.Add(new Person { Firstname = "marcyr", Name = "Test" });
+            await repository.Add(new Person { Firstname = "Test", Name = "Test" });
+
+            // Act
+            IEnumerable<Person> allPeople = await repository.GetAll(person => person.Firstname.ToLower().Contains("cyr"));
+
+            // Assert
+            Assert.AreEqual(3, allPeople.Count());
+        }
+
+        [TestMethod]
+        public async Task When_GetAll_WithPaginationAndPageSizeGreaterThanDbCollectionCount_ThenReturnAllDbCollectionResult()
+        {
+            // Arrange
+            await repository.Add(new Person { Firstname = "Cyril", Name = "Test" });
+            await repository.Add(new Person { Firstname = "Cyrielle", Name = "Test" });
+            await repository.Add(new Person { Firstname = "marcyr", Name = "Test" });
+            await repository.Add(new Person { Firstname = "Test", Name = "Test" });
+
+            // Act
+            IEnumerable<Person> allPeople = await repository.GetAll(paginatedArgs: new PaginatedArgs(10, 1));
+
+            // Assert
+            Assert.AreEqual(4, allPeople.Count());
+        }
+
+        [TestMethod]
+        public async Task When_GetAll_WithPaginationAndPageSizeSmallerThanDbCollectionCount_ThenReturnCollectionOfSizePageSize()
+        {
+            // Arrange
+            await repository.Add(new Person { Firstname = "Cyril", Name = "Test" });
+            await repository.Add(new Person { Firstname = "Cyrielle", Name = "Test" });
+            await repository.Add(new Person { Firstname = "marcyr", Name = "Test" });
+            await repository.Add(new Person { Firstname = "Test", Name = "Test" });
+
+            // Act
+            IEnumerable<Person> allPeople = await repository.GetAll(paginatedArgs: new PaginatedArgs(1, 1));
+
+            // Assert
+            Assert.AreEqual(1, allPeople.Count());
         }
     }
 }
