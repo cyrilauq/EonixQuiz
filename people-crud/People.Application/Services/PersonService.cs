@@ -39,7 +39,7 @@ namespace People.Application.Services
             }
             catch (NotSuchEntityFoundException)
             {
-                throw new ResourceNotFound("No person found for the id [{personId}]");
+                throw new ResourceNotFound($"No person found for the id [{personId}]");
             }
         }
     }
