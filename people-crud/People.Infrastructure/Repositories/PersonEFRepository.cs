@@ -4,6 +4,7 @@ using People.Domain.Entities;
 using People.Domain.Exceptions;
 using People.Domain.Repositories;
 using People.Infrastructure.Data;
+using System;
 
 namespace People.Infrastructure.Repositories
 {
@@ -21,6 +22,22 @@ namespace People.Infrastructure.Repositories
             {
                 throw new EntityNotValidException("The given entity lack of information");
             }
+        }
+
+        public async Task<bool> Delete(Guid personId)
+        {
+            Person? foundedPerson = await GetById(personId);
+            if (foundedPerson == null)
+            {
+                throw new NotSuchEntityFoundException($"No entity Person found with the id [{personId}]");
+            }
+            await context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<Person?> GetById(Guid personId)
+        {
+            return await context.People.FindAsync(personId);
         }
     }
 }

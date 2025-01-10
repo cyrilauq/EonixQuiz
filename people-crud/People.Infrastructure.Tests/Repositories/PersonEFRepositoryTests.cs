@@ -56,5 +56,56 @@ namespace People.Infrastructure.Tests.Repositories
             // Assert
             Assert.AreEqual(firstCount + 1, await dbContext.People.CountAsync());
         }
+
+        [TestMethod]
+        public async Task WhenDeletePersonThatExistThenReturnTrue()
+        {
+            // Arrange
+            Person person = await repository.Add(new Person { Firstname = "Test", Name = "Test" });
+            int firstCount = await dbContext.People.CountAsync();
+
+            // Act
+            bool deletionResult = await repository.Delete(person.Id);
+
+            // Assert
+            Assert.IsTrue(deletionResult);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotSuchEntityFoundException))]
+        public async Task WhenDeletePersonNotThatExistThenReturnFalse()
+        {
+            // Arrange
+            int firstCount = await dbContext.People.CountAsync();
+
+            // Act
+            await repository.Delete(Guid.NewGuid());
+        }
+
+        [TestMethod]
+        public async Task WhenGetByIdFindEntityThenReturnsIt()
+        {
+            // Arrange
+            Person person = await repository.Add(new Person { Firstname = "Test", Name = "Test" });
+
+            // Act
+            Person? foundedEntity = await repository.GetById(person.Id);
+
+            // Assert
+            Assert.IsNotNull(foundedEntity);
+        }
+
+        [TestMethod]
+        public async Task WhenGetByIdNotFindEntityThenReturnsNull()
+        {
+            // Arrange
+            Person person = await repository.Add(new Person { Firstname = "Test", Name = "Test" });
+
+            // Act
+            Person? foundedEntity = await repository.GetById(Guid.NewGuid());
+
+            // Assert
+            Assert.IsNull(foundedEntity);
+        }
     }
 }
