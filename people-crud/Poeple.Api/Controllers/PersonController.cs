@@ -22,6 +22,12 @@ namespace People.Api.Controllers
             return NoContent();
         }
 
+        [HttpGet("{personId}")]
+        public async Task<PersonDTO> GetById(Guid personId)
+        {
+            return await personService.FindById(personId);
+        }
+
         [HttpGet("list")]
         public async Task<PaginatedListDTOs<PersonDTO>> ListPeople([FromQuery] PaginatedArgsDTO? paginatedArgs = null, [FromQuery] FilteringPersonDTO? filteringArgs = null)
         {
