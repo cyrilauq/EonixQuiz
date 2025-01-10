@@ -8,5 +8,6 @@ namespace People.Application.Services.Interfaces
         Task<PersonDTO> Add(PersonDTO personDTO);
         Task<bool> Delete(Guid personId);
         Task<PaginatedListDTOs<PersonDTO>> GetAll(PaginatedArgsDTO? parginationArgs, FilteringPersonDTO? filteringArgs);
+        Task<PersonDTO> FindById(Guid personId);
     }
 }

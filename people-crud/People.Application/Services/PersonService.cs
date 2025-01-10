@@ -45,6 +45,13 @@ namespace People.Application.Services
             }
         }
 
+        public async Task<PersonDTO> FindById(Guid personId)
+        {
+            Person? founded = await personRepository.GetById(personId);
+            if (founded == null) throw new ResourceNotFound($"No person found for the id [{personId}]");
+            return mapper.Map<PersonDTO>(founded);
+        }
+
         public async Task<PaginatedListDTOs<PersonDTO>> GetAll(PaginatedArgsDTO? paginationArgs, FilteringPersonDTO? filteringArgs)
         {
             Expression<Func<Person, bool>>? filteringFunction = ComputeFilteringFunctionFromArgs(filteringArgs);

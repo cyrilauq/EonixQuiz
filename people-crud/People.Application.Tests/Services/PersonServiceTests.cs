@@ -114,5 +114,32 @@ namespace People.Application.Tests.Services
             Assert.IsNotNull(result.PageIndex);
             Assert.IsNotNull(result.PageSize);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ResourceNotFound))]
+        public async Task When_FindById_GetNoPersonForAGivenId_ThenThrowsResourceNotFoundException()
+        {
+            // Arrange
+            mockedPersonRepo.Setup(r => r.GetById(It.IsAny<Guid>()))
+                .ReturnsAsync((Person?)null);
+
+            // Act
+            await service.FindById(Guid.NewGuid());
+        }
+
+        [TestMethod]
+        public async Task When_FindById_GetAPersonForAGivenId_ThenReturnsItsDTOForm()
+        {
+            // Arrange
+            Guid toFoundGuid = Guid.NewGuid();
+            mockedPersonRepo.Setup(r => r.GetById(It.IsAny<Guid>()))
+                .ReturnsAsync(new Person { Firstname = "Test", Name = "Name", Id = toFoundGuid });
+
+            // Act
+            PersonDTO founded = await service.FindById(toFoundGuid);
+
+            // Assert
+            Assert.IsNotNull(founded);
+        }
     }
 }
