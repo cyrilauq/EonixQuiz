@@ -31,6 +31,7 @@ namespace People.Infrastructure.Repositories
             {
                 throw new NotSuchEntityFoundException($"No entity Person found with the id [{personId}]");
             }
+            context.People.Remove(foundedPerson);
             await context.SaveChangesAsync();
             return true;
         }
