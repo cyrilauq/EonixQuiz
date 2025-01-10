@@ -7,6 +7,8 @@ using People.Domain.Entities;
 using People.Domain.Exceptions;
 using People.Domain.Repositories;
 using People.Application.Exceptions;
+using People.Application.DTOs.Args;
+using System.Linq.Expressions;
 
 namespace People.Application.Services
 {
@@ -41,6 +43,25 @@ namespace People.Application.Services
             {
                 throw new ResourceNotFound($"No person found for the id [{personId}]");
             }
+        }
+
+        public async Task<PaginatedListDTOs<PersonDTO>> GetAll(PaginatedArgsDTO? paginationArgs, FilteringPersonDTO? filteringArgs)
+        {
+            Expression<Func<Person, bool>>? filteringFunction = ComputeFilteringFunctionFromArgs(filteringArgs);
+            IEnumerable<Person> result = await personRepository.GetAll(filteringFunction, paginationArgs == null ? null : mapper.Map<PaginatedArgs>(paginationArgs));
+            return new PaginatedListDTOs<PersonDTO>(mapper.Map<IEnumerable<PersonDTO>>(result), paginationArgs?.PageSize, paginationArgs?.PageIndex);
+        }
+
+        private Expression<Func<Person, bool>>? ComputeFilteringFunctionFromArgs(FilteringPersonDTO? filteringArgs)
+        {
+            if (filteringArgs == null || (filteringArgs.firstName == null && filteringArgs.name == null)) return null;
+            FilteringPersonDTO lowerCaseArgs = new FilteringPersonDTO(filteringArgs?.name?.ToLower(), filteringArgs?.firstName?.ToLower());
+            return filteringArgs == null ? null :
+                (Person person) =>
+                    (lowerCaseArgs.firstName != null && person.Firstname.Contains(lowerCaseArgs.firstName))
+                    || (lowerCaseArgs.name != null && person.Name.Contains(lowerCaseArgs.name));
+
+            // TODO : make filter filter each field when they're both provided
         }
     }
 }
