@@ -141,5 +141,43 @@ namespace People.Application.Tests.Services
             // Assert
             Assert.IsNotNull(founded);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ValidationException))]
+        public async Task When_UpdateWithWrongData_ThenThrowsValidationException()
+        {
+            // Act
+            await service.UpdateAsync(Guid.NewGuid(), new PersonDTO());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ResourceNotFound))]
+        public async Task When_UpdateUnKnowId_ThenThrowsResourceNotFound()
+        {
+            // Arrange
+            mockedPersonRepo.Setup(mpr => mpr.Update(It.IsAny<Guid>(), It.IsAny<Person>()))
+                .ThrowsAsync(new NotSuchEntityFoundException(""));
+
+            // Act
+            await service.UpdateAsync(Guid.NewGuid(), new PersonDTO
+            {
+                Firstname = "Test",
+                Name = "Name",
+            });
+        }
+
+        [TestMethod]
+        public async Task When_UpdateWithKnownIdAndValidData_ThenUpdateIsCalledAndNoExceptionIsThrown()
+        {
+            // Act
+            await service.UpdateAsync(Guid.NewGuid(), new PersonDTO
+            {
+                Firstname = "Test",
+                Name = "Name",
+            });
+
+            // Assert
+            mockedPersonRepo.Verify(mpr => mpr.Update(It.IsAny<Guid>(), It.IsAny<Person>()), Times.Once());
+        }
     }
 }

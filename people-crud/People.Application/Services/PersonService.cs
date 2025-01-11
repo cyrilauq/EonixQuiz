@@ -59,6 +59,25 @@ namespace People.Application.Services
             return new PaginatedListDTOs<PersonDTO>(mapper.Map<IEnumerable<PersonDTO>>(result), paginationArgs?.PageSize, paginationArgs?.PageIndex);
         }
 
+        public async Task<PersonDTO> UpdateAsync(Guid personId, PersonDTO personDTO)
+        {
+            try
+            {
+                var validationResult = validator.Validate(personDTO);
+                if (!validationResult.IsValid)
+                {
+                    throw new ApplicationExceptions.ValidationException("Entity not valid", validationResult.Errors.Select(error => error.ErrorMessage).ToArray());
+                }
+                Person entity = mapper.Map<Person>(personDTO);
+                Person updatingResult = await personRepository.Update(personId, entity);
+                return mapper.Map<PersonDTO>(updatingResult);
+            }
+            catch (NotSuchEntityFoundException)
+            {
+                throw new ResourceNotFound($"{personId} was not found");
+            }
+        }
+
         private Expression<Func<Person, bool>>? ComputeFilteringFunctionFromArgs(FilteringPersonDTO? filteringArgs)
         {
             if (filteringArgs == null || (filteringArgs.firstName == null && filteringArgs.name == null)) return null;

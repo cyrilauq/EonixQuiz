@@ -9,5 +9,6 @@ namespace People.Application.Services.Interfaces
         Task<bool> Delete(Guid personId);
         Task<PaginatedListDTOs<PersonDTO>> GetAll(PaginatedArgsDTO? parginationArgs, FilteringPersonDTO? filteringArgs);
         Task<PersonDTO> FindById(Guid personId);
+        Task<PersonDTO> UpdateAsync(Guid personId, PersonDTO personDTO);
     }
 }
