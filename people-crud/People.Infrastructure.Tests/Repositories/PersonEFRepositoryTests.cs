@@ -172,5 +172,32 @@ namespace People.Infrastructure.Tests.Repositories
             // Assert
             Assert.AreEqual(1, allPeople.Count());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotSuchEntityFoundException))]
+        public async Task When_Update_WithUnknowEntityId_ThenThrowsNotSuchEntityFoundException()
+        {
+            // Arrange
+            Person toUpdate = new Person { Firstname = "Test", Name = "Test" };
+
+            // Act
+            await repository.Update(Guid.NewGuid(), toUpdate);
+        }
+
+        [TestMethod]
+        public async Task When_Update_WithRightIdAndRightInformation_ThenReturnsNewEntity()
+        {
+            // Arrange
+            Person addedPerson = await repository.Add(new Person { Firstname = "Cyril", Name = "Test" });
+            Guid personId = addedPerson.Id;
+
+            // Act
+            await repository.Update(personId, new Person { Firstname = "Test", Name = "UpdateTest" });
+            Person? updatedPerson = await repository.GetById(personId);
+
+            // Assert
+            Assert.IsNotNull(updatedPerson);
+            Assert.AreEqual("UpdateTest", updatedPerson.Name);
+        }
     }
 }

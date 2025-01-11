@@ -56,5 +56,14 @@ namespace People.Infrastructure.Repositories
         {
             return await context.People.FindAsync(personId);
         }
+
+        public async Task<Person> Update(Guid personId, Person person)
+        {
+            Person toUpdate = await GetById(personId) ?? throw new NotSuchEntityFoundException($"No person found for the id [{personId}]");
+            toUpdate.Firstname = person.Firstname;
+            toUpdate.Name = person.Name;
+            var changes = await context.SaveChangesAsync();
+            return toUpdate;
+        }
     }
 }
