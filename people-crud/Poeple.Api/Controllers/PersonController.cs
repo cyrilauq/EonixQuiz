@@ -33,5 +33,11 @@ namespace People.Api.Controllers
         {
             return await personService.GetAll(paginatedArgs, filteringArgs);
         }
+
+        [HttpPut("{personId}")]
+        public async Task<PersonDTO> UpdatePersonAsync(Guid personId, [FromBody] PersonDTO dto)
+        {
+            return await personService.UpdateAsync(personId, dto);
+        }
     }
 }
