@@ -4,9 +4,9 @@
     {
         public string Name { get { return name; } }
 
-        public void ExecuteTrick(Trick trick)
+        public string ExecuteTrick(Trick trick)
         {
-            Console.WriteLine($"{name} executed trick \"{trick.Name}\"");
+            return $"{name} executed trick \"{trick.Name}\"";
         }
     }
 }

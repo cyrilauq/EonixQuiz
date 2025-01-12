@@ -2,9 +2,9 @@
 {
     public class Spectator
     {
-        public void Applause(Trick trick, string animalName)
+        public string Applause(Trick trick, string animalName)
         {
-            Console.WriteLine($"spectateur applaudit pendant le tour d'acrobatie '{trick.Name}' du {animalName}");
+            return $"spectateur applaudit pendant le tour d'acrobatie '{trick.Name}' du {animalName}";
         }
     }
 }

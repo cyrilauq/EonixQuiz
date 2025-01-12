@@ -2,9 +2,9 @@
 {
     public class Dressor(Monkey monkey)
     {
-        public void MakeDoTrick(Trick trick)
+        public string MakeDoTrick(Trick trick)
         {
-            monkey.ExecuteTrick(trick);
+            return monkey.ExecuteTrick(trick);
         }
     }
 }
