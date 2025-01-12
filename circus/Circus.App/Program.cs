@@ -17,5 +17,5 @@ for (int i = 0; i < tricks1.Length && i < tricks2.Length; i++)
     Console.WriteLine(dressor1.MakeDoTrick(tricks1[i]));
     Console.WriteLine(spectator.Applause(tricks1[i], monkey1.Name));
     Console.WriteLine(monkey2.ExecuteTrick(tricks2[i]));
-    Console.WriteLine(spectator.Applause(tricks2[i], monkey1.Name));
+    Console.WriteLine(spectator.Applause(tricks2[i], monkey2.Name));
 }
