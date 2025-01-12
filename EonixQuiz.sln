@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People.Application.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People.Infrastructure.Tests", "people-crud\People.Infrastructure.Tests\People.Infrastructure.Tests.csproj", "{024ADE50-AD71-49E6-9AE3-A5652F3656AA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{76BEF971-7145-4FB7-8640-1DC9FE81782D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D83D9549-7638-42B0-BC8C-AC046FC3F69D}"
 	ProjectSection(SolutionItems) = preProject
 		People.postman_collection.json = People.postman_collection.json
 	EndProjectSection
