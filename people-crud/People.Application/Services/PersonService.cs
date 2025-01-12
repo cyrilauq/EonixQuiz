@@ -82,12 +82,22 @@ namespace People.Application.Services
         {
             if (filteringArgs == null || (filteringArgs.firstName == null && filteringArgs.name == null)) return null;
             FilteringPersonDTO lowerCaseArgs = new FilteringPersonDTO(filteringArgs?.name?.ToLower(), filteringArgs?.firstName?.ToLower());
-            return filteringArgs == null ? null :
-                (Person person) =>
+            if(filteringArgs.firstName != null && filteringArgs.name != null)
+            {
+                return (Person person) =>
                     (lowerCaseArgs.firstName != null && person.Firstname.Contains(lowerCaseArgs.firstName))
-                    || (lowerCaseArgs.name != null && person.Name.Contains(lowerCaseArgs.name));
+                    && (lowerCaseArgs.name != null && person.Name.Contains(lowerCaseArgs.name));
+            }
+            return ComputeSingleFilterFunction(lowerCaseArgs);
+        }
 
-            // TODO : make filter filter each field when they're both provided
+        private Expression<Func<Person, bool>> ComputeSingleFilterFunction(FilteringPersonDTO filteringArgs)
+        {
+            if(filteringArgs.firstName != null)
+            {
+                return (Person person) => (filteringArgs.firstName != null && person.Firstname.Contains(filteringArgs.firstName));
+            }
+            return (Person person) => (filteringArgs.name != null && person.Name.Contains(filteringArgs.name));
         }
     }
 }

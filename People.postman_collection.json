@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "9e3bf428-d077-40fe-89cc-141391fbb781",
+		"name": "People",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "34449400"
+	},
+	"item": [
+		{
+			"name": "Add a Person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const person = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Has properties\", function () {\r",
+							"    pm.expect(person).to.have.property('name');\r",
+							"    pm.expect(person).to.have.property('firstname');\r",
+							"});\r",
+							"\r",
+							"if(pm.test(\"Has properties\")) {\r",
+							"    pm.globals.set('person_id', person.id);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Honey\",\r\n    \"firstname\": \"Money\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{api_url}}/api/person"
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const person = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Has properties\", function () {\r",
+							"    pm.expect(person).to.have.property('name');\r",
+							"    pm.expect(person).to.have.property('firstname');\r",
+							"});\r",
+							"\r",
+							"if(pm.test(\"Has properties\")) {\r",
+							"    pm.globals.set('person_id', person.id);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Honey\",\r\n    \"firstname\": \"Money\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{api_url}}/api/person/{{person_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete person",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{api_url}}/api/person/{{person_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "List people without args",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{api_url}}/api/person/list"
+			},
+			"response": []
+		},
+		{
+			"name": "List people with multi filtering",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/api/person/list?name=OnEy&firstName=X",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"api",
+						"person",
+						"list"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "OnEy"
+						},
+						{
+							"key": "firstName",
+							"value": "X"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List people with single filtering",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/api/person/list?name=OnEy",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"api",
+						"person",
+						"list"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "OnEy"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get person by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{api_url}}/api/person/b806f66a-ed00-4268-87a6-7ff8e9586421"
+			},
+			"response": []
+		}
+	]
+}
