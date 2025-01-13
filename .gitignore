@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 /people-crud/Poeple.Api/people.db-shm
 /people-crud/Poeple.Api/people.db-wal
+
+appsettings.json
+appsettings.*.json
