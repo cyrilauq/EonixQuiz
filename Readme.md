@@ -21,8 +21,8 @@ Avant de lancer le project, il faut créer un nouveau fichier "appsettings.json" 
 
 ### Base de données
 
-Un fichier "" est présent pour la base de données. Donc il ne devrait pas être nécessaire de créer la base de données pour le projet mais si un problème venait à survenir avec cette dernière, voici ce que vous pouvez faire:
-- Supprimer le fichier "" qui se trouve dans le dossier du projet ""
+Un fichier "people.db" est présent pour la base de données. Donc il ne devrait pas être nécessaire de créer la base de données pour le projet mais si un problème venait à survenir avec cette dernière, voici ce que vous pouvez faire:
+- Supprimer le fichier "" qui se trouve dans le dossier du projet "people.db"
 - Ouvrir le "Package Manager Console" pour le projet "People.API" et exécuter la command "Update-Database" (attention, dans ce cas là, la base de données sera vide)
 
 ### Utilisation
